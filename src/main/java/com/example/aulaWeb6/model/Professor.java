@@ -6,33 +6,33 @@
 
 package com.example.aulaWeb6.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+// import javax.persistence.Entity;
+// import javax.persistence.Table;
 
-/**
- * @author aluno
- */
+// /**
+//  * @author aluno
+//  */
 
-@Entity
-@Table (name = "ProfWeb")
-public class Professor {
-    private String nome;
-    private int matricula;
+// @Entity
+// @Table (name = "ProfWeb")
+// public class Professor {
+//     private String nome;
+//     private int matricula;
 
     
-    public String getNome() {
-        return nome;
-    }
+//     public String getNome() {
+//         return nome;
+//     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+//     public void setNome(String nome) {
+//         this.nome = nome;
+//     }
 
-    public int getMatricula() {
-        return matricula;
-    }
+//     public int getMatricula() {
+//         return matricula;
+//     }
 
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
-    }
-}
+//     public void setMatricula(int matricula) {
+//         this.matricula = matricula;
+//     }
+// }
