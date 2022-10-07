@@ -10,9 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- *
  * @author aluno
- *
+ */
+
 @Entity
 @Table (name = "ProfWeb")
 public class Professor {
@@ -36,4 +36,3 @@ public class Professor {
         this.matricula = matricula;
     }
 }
-* */
