@@ -27,14 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping (value="/apiAluno")
-public class AlunoController extends IController<Aluno, Integer> {
-    
+public class AlunoController implements IController<Aluno, Integer> {
     @Autowired
     AlunoRepository alunoRepository;
-    // @Autowired
-    // JpaRepository<Aluno, Integer> alunoRepository;
 
-    
     @GetMapping (value="/alunos")
     public List<Aluno> findAll() {
         return alunoRepository.findAll();

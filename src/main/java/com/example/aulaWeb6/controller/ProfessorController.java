@@ -4,46 +4,54 @@
  * and open the template in the editor.
  */
 package com.example.aulaWeb6.controller;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.example.aulaWeb6.model.Professor;
+import com.example.aulaWeb6.repository.ProfessorRepository;
+/**
+ *
+ * @author taniabasso
+ */
 
+@RestController
+@RequestMapping (value="/apiProfessor")
+public class ProfessorController implements IController<Professor, Integer> {
+    @Autowired
+    private ProfessorRepository professorRepository;
 
-// import java.util.List;
-// import java.util.Optional;
-// import org.springframework.beans.factory.annotation.Autowired;
-// // import org.springframework.data.jpa.repository.JpaRepository;
-// import org.springframework.web.bind.annotation.CrossOrigin;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RestController;
+    @GetMapping(value="/professor")
+    public List<Professor> findAll() {
+        return professorRepository.findAll();
+    }
 
-// import com.example.aulaWeb6.model.Professor;
-// import com.example.aulaWeb6.repository.ProfessorRepository;
-// /**
-//  *
-//  * @author taniabasso
-//  */
+    @GetMapping(value="/professor/{matricula}")
+    public Optional<Professor> findByID(@PathVariable (value="matricula") Integer matricula) {
+        return professorRepository.findById(matricula);
+    }
 
-// @RestController
-// @RequestMapping (value="/apiProfessor")
-// public class ProfessorController implements IController<Professor, Integer> {    
-    
-//     @GetMapping (value="/professor")
-//     public List<Professor> findAll() {
-//         return professorRepository.findAll();
-//     }
-    
-//     @GetMapping (value="/professor/{matricula}")
-//     public Optional<Professor> findByID(@PathVariable (value="matricula") Integer matricula) {
-//         // return professorRepository.findById(matricula);
-//         return Optional.empty();
-//     }
-    
-//     @CrossOrigin
-//     @PostMapping("/inserirProfessor")
-//     public void add(@RequestBody Professor professor) {
-//         // professorRepository.save(professor);
-//     }
-// }
+    @GetMapping(value="/templates")
+    public List<Professor> generateTemplates() {
+        if (findAll().size() == 0) {
+            professorRepository.save(new Professor("Márcia", 543));
+            professorRepository.save(new Professor("Amélia", 286));
+            professorRepository.save(new Professor("Larissa", 483));
+        }
+
+        return findAll();
+    }
+
+    @CrossOrigin
+    @PostMapping("/inserirProfessor")
+    public void add(@RequestBody Professor professor) {
+        professorRepository.save(professor);
+    }
+}

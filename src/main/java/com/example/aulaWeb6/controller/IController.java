@@ -11,17 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-public abstract class IController<T, ID> {
-    // @Autowired
-    // JpaRepository<T, ID> repository;
-
-    @GetMapping
-    public abstract List<T> findAll();
+public interface IController<T, ID> {
+    List<T> findAll();
     
-    @GetMapping
-    public abstract Optional<T> findByID(@PathVariable ID id);
+    public Optional<T> findByID(ID id);
 
-    @CrossOrigin
-    @PostMapping
-    public abstract void add(@RequestBody T value);
+    public void add(T value);
 }
