@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * @author aluno
  */
 @Entity
-@Table(name = "ProfWeb")
+@Table(name = "prof_web")
 public class Professor {
     public Professor() { }
 
@@ -33,9 +33,11 @@ public class Professor {
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
 
     public int getMatricula() {
         return matricula;

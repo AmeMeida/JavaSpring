@@ -28,13 +28,11 @@ public class ProfessorController implements IController<Professor, Integer> {
     @Autowired
     private ProfessorRepository professorRepository;
 
-    @GetMapping(value="/professor")
     public List<Professor> findAll() {
         return professorRepository.findAll();
     }
 
-    @GetMapping(value="/professor/{matricula}")
-    public Optional<Professor> findByID(@PathVariable (value="matricula") Integer matricula) {
+    public Optional<Professor> findByID(Integer matricula) {
         return professorRepository.findById(matricula);
     }
 
@@ -49,9 +47,7 @@ public class ProfessorController implements IController<Professor, Integer> {
         return findAll();
     }
 
-    @CrossOrigin
-    @PostMapping("/inserirProfessor")
-    public void add(@RequestBody Professor professor) {
+    public void add(Professor professor) {
         professorRepository.save(professor);
     }
 }

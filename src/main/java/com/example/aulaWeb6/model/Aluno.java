@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author taniabasso
  */
 @Entity
-@Table
+@Table(name = "aluno_web")
 public class Aluno {
     
     @Id
@@ -42,5 +42,4 @@ public class Aluno {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
 }

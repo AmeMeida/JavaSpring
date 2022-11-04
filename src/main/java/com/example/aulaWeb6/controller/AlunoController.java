@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 // import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,39 +27,46 @@ import org.springframework.web.bind.annotation.RestController;
  * @author taniabasso
  */
 @RestController
-@RequestMapping (value="/apiAluno")
+@RequestMapping(value = "/apiAluno")
 public class AlunoController implements IController<Aluno, Integer> {
     @Autowired
     AlunoRepository alunoRepository;
 
-    @GetMapping (value="/alunos")
     public List<Aluno> findAll() {
         return alunoRepository.findAll();
     }
     
-    @GetMapping (value="/alunos/{ra}")
-    public Optional<Aluno> findByID(@PathVariable (value="ra") Integer ra) {
+    public Optional<Aluno> findByID(Integer ra) {
         return alunoRepository.findById(ra);
     }
 
-    // @GetMapping (value="/alunos/nome/{nome}")
-    // public Optional<Aluno> listarAlunosPorRA(@PathVariable (value="nome") String nome) {
-    //     for (Aluno al: alunoalunoRepository.findAll()) {
-    //         if (al.getNome().trim().toLowerCase().equals(nome.trim().toLowerCase()))
-    //             return Optional.of(al);
-    //     }
-
-    //     return Optional.empty();
-    // }
-
-    @GetMapping (value="/alunos/helloworld")
-    public String helloWorld() {
-        return "Isa!";
-    }
-    
-    @CrossOrigin
-    @PostMapping("/inserirAluno")
-    public void add(@RequestBody Aluno aluno) {
+    public void add(Aluno aluno) {
         alunoRepository.save(aluno);
+    }
+
+    @GetMapping("/alunos/{nome}")
+    public List<Aluno> findByNome(@PathVariable(value = "nome") String nome) {
+        return alunoRepository.findByNome(nome);
+    }
+
+    @GetMapping("/busca/ra_maior/{ra}")
+    public List<Aluno> findByGTRa(@PathVariable(value = "ra") Integer ra) {
+        return alunoRepository.findByGTRa(ra);
+    }
+
+    @CrossOrigin
+    @PostMapping("/inserir/multiplos")
+    public void addRange(@RequestBody Iterable<Aluno> alunos) {
+        alunoRepository.saveAll(alunos);
+    }
+
+    @GetMapping("/busca/{nome}")
+    public List<Aluno> findByNomeContains(@PathVariable(value = "nome") String nome) {
+        return alunoRepository.findByNomeContains(nome.toLowerCase());
+    }
+
+    @GetMapping("/busca/{ra}/{nome}")
+    public List<Aluno> findByNomeRA(@PathVariable(value = "ra") Integer ra, @PathVariable(value = "nome") String nome) {
+        return alunoRepository.findByNomeRA(ra, nome);
     }
 }
